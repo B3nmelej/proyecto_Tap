@@ -56,7 +56,7 @@ export class Model {
     console.log('get Entradas');
     // Manejar errores en caso de que la consulta falle
     try {
-        // Realizar la consulta
+        // Realizar la consulta/ devuelve todas las entradas
         const [entradas_rows] = await connection.query(
           `SELECT * FROM entradas;`,
         );
@@ -113,16 +113,17 @@ export class Model {
   }
   static async Create_Entrada ({input}){
     const { 
-      fecha_merma,
+      descripcion,
+      id_usuario,
       cantidad,
-      motivo,
-      id_entrada
+      id_almacen,
+      fecha_entrada
     } = input
     try{
       await connection.query(
         `INSERT INTO merma (fecha_merma, cantidad, motivo, id_entrada)
         VALUES (?, ?, ?, ?)`,
-       [fecha_merma, cantidad, motivo, id_entrada]
+       [descripcion, id_usuario, cantidad, id_almacen, fecha_entrada,]
       )
       // Retornar el ID del nuevo registro insertado
       return console.log('exitoso')
